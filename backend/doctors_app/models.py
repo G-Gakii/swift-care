@@ -12,13 +12,14 @@ phone_regex = RegexValidator(
 )
 #ensures that the availability field contains a valid JSON object
 def validate_availability(value):
-    try:
-        data = json.loads(value)
-        if not isinstance(data, dict):
-            raise ValidationError("Availability must be a JSON object.")
-    except json.JSONDecodeError:
-        raise ValidationError("Invalid JSON format.")
-# Create your models here.
+    if isinstance(value, str):  # Convert only if it's a string
+        try:
+            value = json.loads(value)
+        except json.JSONDecodeError:
+            raise ValidationError("Invalid JSON format.")
+
+    if not isinstance(value, dict):  # Final check
+        raise ValidationError("Availability must be a JSON object.")
 
     
 class Doctor(models.Model):

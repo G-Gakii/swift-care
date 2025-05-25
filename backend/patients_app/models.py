@@ -4,6 +4,7 @@ from doctors_app.models import Doctor
 from django.core.validators import MinLengthValidator,RegexValidator
 from django.core.exceptions import ValidationError
 from datetime import date,timezone
+from django.utils.timezone import now 
 
 #Validate phone format to ensure only digits are allowed.
 phone_regex = RegexValidator(
@@ -16,7 +17,7 @@ def validate_date_of_birth(value):
  
 #Ensure the appointment is not scheduled in the past.   
 def validate_appointment_time(value):
-    if value < timezone.now():
+    if value < now():
         raise ValidationError("Appointment time cannot be in the past.")
 
 
