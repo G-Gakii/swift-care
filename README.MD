@@ -32,6 +32,21 @@ SwiftCare is a modern, secure, and efficient role-based healthcare appointment s
 - HTML
 - CSS
 
+## Database Schema
+
+SwiftCare's database schema ensures efficient role-based access control and scheduling.
+
+### **Core Tables**
+
+- **Users**: Stores patient, doctor, and admin details.
+- **Appointments**: Manages scheduled appointments, linking patients and doctors.
+- **Roles**: Implements role-based access control.
+
+### **Entity-Relationship Diagram**
+
+For a visual representation, refer to the schema documentation:
+[Database Schema](https://dbdiagram.io/d/swift-care-6832db08b9f7446da3086a91)
+
 ## Installation
 
 To get SwiftCare up and running on your local machine, follow these steps:
@@ -59,6 +74,7 @@ Navigate into the backend directory using this command `cd backend`. Follow thes
 
 - **Create a `.env` file:** In your `backend/swiftcare` directory (or wherever your `settings.py` resides), create a new file named `.env`.
 - **Add your database credentials:** Populate the `.env` file with your PostgreSQL database details. Replace the placeholder values with your actual database credentials:
+
   ````DB_NAME=your_database_name
   DB_USER=your_database_user
   DB_PASSWORD=your_database_password
@@ -67,6 +83,7 @@ Navigate into the backend directory using this command `cd backend`. Follow thes
   SECRECT_KEY=secretkey ```
 
   ````
+
 - Run database migrations: `python manage.py migrate`
 - Create a Superuser (Optional, for admin access) : `python manage.py createsuperuser`
 - Run the Backend Server: `python manage.py runserver`
