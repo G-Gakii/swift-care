@@ -7,9 +7,8 @@ const Home = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Navbar />
-      <div className="text-center">
-        <p>Click patient if a patient or doctor for doctor</p>
+      <div className="text-center m-5">
+        <h1>Are you patient or doctor</h1>
         <button
           onClick={() => {
             localStorage.setItem("role", "patient");
