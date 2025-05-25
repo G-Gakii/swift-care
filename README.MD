@@ -36,44 +36,50 @@ SwiftCare is a modern, secure, and efficient role-based healthcare appointment s
 
 To get SwiftCare up and running on your local machine, follow these steps:
 
-1. Prerequisites
+### Prerequisites
 
 - Python 3.8+
 - Node.js and npm (or yarn)
 - Git
 
-2. Clone the Repository
+### Clone the Repository
 
 - git clone https://github.com/G-Gakii/swift-care.git
 - cd swift-care
 
-3. Backend Setup (Django)
-   Navigate into the backend directory and set up the Django application.
+### Backend Setup (Django)
 
-- cd backend
-  a.Create a Virtual Environment:python -m venv venv
-- Activate virtual environment: source venv/bin/activate # On Windows: venv\Scripts\activate
-  b. Install Dependencies
-- pip install -r requirements.txt
-  c. Database Setup
-- Configure your database settings in swiftcare/settings.py.
-- Run database migrations:
-- python manage.py migrate
-  d. Create a Superuser (Optional, for admin access)
-- python manage.py createsuperuser
-  e. Run the Backend Server
-- python manage.py runserver
-  The backend API will be running at http://127.0.0.1:8000/.
+Navigate into the backend directory using this command `cd backend`. Follow these steps to set up the Django application.
 
-1. Frontend Setup (React)
+- Create a Virtual Environment: `python -m venv venv`
+- Activate virtual environment: `source venv/bin/activate # On Windows: venv\Scripts\activate`
+- Install Dependencies: `pip install -r requirements.txt`
 
-- Open a new terminal, navigate back to the root of the project, and then into the frontend directory.
-- cd frontend
-  a. Install Dependencies
-  npm install  
-  b. Start the Frontend Development Server
-  npm start # or yarn start
-  The React development server will start, usually opening in your browser at http://localhost:3000/.
+#### Database Setup
+
+- **Create a `.env` file:** In your `backend/swiftcare` directory (or wherever your `settings.py` resides), create a new file named `.env`.
+- **Add your database credentials:** Populate the `.env` file with your PostgreSQL database details. Replace the placeholder values with your actual database credentials:
+  ````DB_NAME=your_database_name
+  DB_USER=your_database_user
+  DB_PASSWORD=your_database_password
+  DB_HOST=localhost # Or your database host
+  DB_PORT=5432 # Or your database port
+  SECRECT_KEY=secretkey ```
+
+  ````
+- Run database migrations: `python manage.py migrate`
+- Create a Superuser (Optional, for admin access) : `python manage.py createsuperuser`
+- Run the Backend Server: `python manage.py runserver`
+
+The backend API will be running at http://127.0.0.1:8000/.
+
+### Frontend Setup (React)
+
+- Open a new terminal, navigate back to the root of the project, and then into the frontend directory:`cd frontend`
+- Install Dependencies: `npm install  `
+- Start the Frontend Development Server: `npm start`
+
+The React development server will start, usually opening in your browser at http://localhost:3000/.
 
 ## Usage
 
