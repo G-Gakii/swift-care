@@ -3,6 +3,9 @@ from doctors_app.api.serializers import DoctorSerializer
 from rest_framework import generics
 from doctors_app.api.permissions import IsOwnerOrAdmin
 from rest_framework.permissions import IsAuthenticated
+from patients_app.api.permissions import IsDoctororAdmin
+from django.core.exceptions import ValidationError
+
 
 
 
@@ -15,3 +18,4 @@ class DoctorDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
     queryset = Doctor.objects.all()
     serializer_class =DoctorSerializer
+    

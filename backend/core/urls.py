@@ -34,11 +34,11 @@ from drf_yasg import openapi
 # Swagger/OpenAPI schema configuration
 schema_view = get_schema_view(
     openapi.Info(
-        title="SafeCity API",
+        title="Swift-care",
         default_version='v1',
-        description="API documentation for SafeCity platform",
+        description="API documentation for Swift-care",
         terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="you@example.com"),
+        contact=openapi.Contact(email="gakiiviolet1@example.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,

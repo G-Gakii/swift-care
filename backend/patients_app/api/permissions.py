@@ -15,4 +15,7 @@ class IsDoctororAdmin(BasePermission):
         if not request.user.is_authenticated:
             return False  # Prevents AnonymousUser errors
         
-        return request.user.role in ["doctor", "admin"]
+        if request.user.role in ["doctor", "admin"]:
+            return True
+    
+        return request.method in SAFE_METHODS 

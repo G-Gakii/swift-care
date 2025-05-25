@@ -2,6 +2,7 @@ from rest_framework import serializers
 from doctors_app.models import Doctor
 from user_app.api.serializers import CustomUserSerializer
 from user_app.models import CustomUser
+from rest_framework import serializers
 
 
 class DoctorSerializer(serializers.ModelSerializer):
@@ -10,7 +11,7 @@ class DoctorSerializer(serializers.ModelSerializer):
     role = serializers.CharField(read_only=True, source="user.role")
     class Meta:
         model=Doctor
-        fields = ["email", "password", "identification_number", "full_name", "specialization", "phone_number", "availability","role"]
+        fields = ["email", "password", "identification_number", "full_name","availability", "specialization", "phone_number","role"]
         
     def create(self, validated_data):
         # Extract email & password separately
@@ -21,3 +22,5 @@ class DoctorSerializer(serializers.ModelSerializer):
             user = CustomUser.objects.create_user(email=email, password=password, role="doctor")
             doctor = Doctor.objects.create(user=user, **validated_data)
             return doctor
+
+       

@@ -21,8 +21,10 @@ def validate_availability(value):
     if not isinstance(value, dict):  # Final check
         raise ValidationError("Availability must be a JSON object.")
 
+
     
 class Doctor(models.Model):
+    
     user=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
     identification_number=models.CharField(primary_key=True,max_length=15,unique=True,validators=[MinLengthValidator(5)])
     full_name=models.CharField(max_length=255,blank=False)
@@ -31,5 +33,15 @@ class Doctor(models.Model):
     availability=models.JSONField(validators=[validate_availability])
     created_at=models.DateTimeField(auto_now_add=True)
     
+    class Meta:
+        ordering=("-created_at",)
+    
     def __str__(self):
-        return self.indentification_number
+        return self.identification_number
+    
+
+   
+    
+    
+    
+    
