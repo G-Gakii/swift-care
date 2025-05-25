@@ -1,6 +1,11 @@
 import React from "react";
 
 const Navbar = () => {
+  let role = localStorage.getItem("role");
+  const logoutfn = () => {
+    localStorage.clear();
+  };
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -22,22 +27,57 @@ const Navbar = () => {
           <ul className="navbar-nav">
             <li className="nav-item">
               <a className="nav-link active" aria-current="page" href="/">
-                Register Patient
+                Home
               </a>
             </li>
+
             <li className="nav-item">
-              <a className="nav-link" href="/doctor">
-                Register Doctor
+              <a className="nav-link" href="/doctors">
+                Doctors
               </a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/appointment">
-                Book Appointment
-              </a>
-            </li>
+            {role === "patient" || role === "admin" ? (
+              <>
+                <li className="nav-item">
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    href="/patient"
+                  >
+                    Register
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/book_appointment">
+                    Book Appointment
+                  </a>
+                </li>
+              </>
+            ) : null}
+
+            {role === "doctor" || role === "admin" ? (
+              <>
+                <li className="nav-item">
+                  <a className="nav-link" href="/doctor">
+                    Register
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/show_appointments">
+                    Appointments
+                  </a>
+                </li>
+              </>
+            ) : null}
+
             <li className="nav-item">
               <a className="nav-link" href="/login">
                 Login
+              </a>
+            </li>
+            <li className="nav-item">
+              <a onClick={logoutfn} className="nav-link" href="/">
+                Logout
               </a>
             </li>
           </ul>

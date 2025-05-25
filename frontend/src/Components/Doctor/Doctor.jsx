@@ -1,8 +1,10 @@
 import Navbar from "../NavBar/navbar";
 import React, { useEffect, useState } from "react";
 import { AxiosInstance } from "../../services/ApiInterceptor";
+import { useNavigate } from "react-router-dom";
 
 const Doctor = () => {
+  const navigate = useNavigate();
   const [doctor, setDoctor] = useState({
     email: "",
     password: "",
@@ -10,8 +12,11 @@ const Doctor = () => {
     full_name: "",
     specialization: "",
     phone_number: "",
-    availability: "",
+    day: "",
+    time: "",
+    // availability: {},
   });
+
   const [formErrors, setFormErrors] = useState({});
 
   const handleChange = (e) => {
@@ -20,17 +25,34 @@ const Doctor = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log("start");
-
     e.preventDefault();
+
+    const availability = {
+      [doctor.day]: doctor.time,
+    };
+    let updatedDoctor = {
+      email: doctor.email,
+      password: doctor.password,
+      identification_number: doctor.identification_number,
+      full_name: doctor.full_name,
+      specialization: doctor.specialization,
+      phone_number: doctor.phone_number,
+      availability: JSON.stringify(availability),
+    };
+
     const errors = validate(doctor);
     if (Object.keys(errors).length > 0) {
+      console.log(errors);
+
       setFormErrors(errors);
       return;
     }
+
     try {
-      let res = await AxiosInstance.post("doctor", doctor);
+      let res = await AxiosInstance.post("doctor", updatedDoctor);
       console.log(res);
+      navigate("/login");
+
       alert("Your have been registered successfully");
     } catch (error) {
       console.log(error);
@@ -50,14 +72,18 @@ const Doctor = () => {
     if (!doctor.identification_number) {
       errors.identification_number = "Identification Number required";
     }
-    if (!doctor.availability) {
-      errors.insurance_provider = "Insurance Provider required";
-    }
+
     if (!doctor.phone_number) {
       errors.phone_number = "Phone Number required";
     }
     if (!doctor.password) {
       errors.password = "Password required";
+    }
+    if (!doctor.day) {
+      errors.day = "Password required";
+    }
+    if (!doctor.time) {
+      errors.time = "Password required";
     }
     return errors;
   };
@@ -74,7 +100,7 @@ const Doctor = () => {
       <Navbar />
 
       <form onSubmit={handleSubmit}>
-        <h1 className="text-center">Register Doctor</h1>
+        <h1 className="text-center">Register </h1>
         <div className="mb-3">
           <label htmlFor="full_name" className="form-label">
             Fullname
@@ -84,6 +110,7 @@ const Doctor = () => {
             className="form-control"
             id="full_name"
             name="full_name"
+            value={doctor.full_name}
             aria-describedby="full_nameHelp"
             placeholder="e.g john doe"
             onChange={handleChange}
@@ -103,6 +130,7 @@ const Doctor = () => {
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             name="email"
+            value={doctor.email}
             placeholder="e.g john@email.com"
             onChange={handleChange}
             onFocus={handleFocus}
@@ -122,6 +150,7 @@ const Doctor = () => {
             name="identification_number"
             aria-describedby=" identification_numberHelp"
             placeholder="DOC123456710"
+            value={doctor.identification_number}
             onChange={handleChange}
             onFocus={handleFocus}
           />
@@ -139,6 +168,7 @@ const Doctor = () => {
             className="form-control"
             id="phone_number"
             name="phone_number"
+            value={doctor.phone_number}
             aria-describedby="phone_numberHelp"
             placeholder="e.g +254711111111"
             onChange={handleChange}
@@ -155,6 +185,7 @@ const Doctor = () => {
           <input
             type="text"
             className="form-control"
+            value={doctor.specialization}
             id="specialization"
             name="specialization"
             aria-describedby="specialization"
@@ -167,21 +198,39 @@ const Doctor = () => {
           )}
         </div>
         <div className="mb-3">
-          <label htmlFor="availability" className="form-label">
-            Availability
+          <label htmlFor="day" className="form-label">
+            Availability Day
           </label>
           <input
             type="text"
             className="form-control"
-            id="availability"
-            name="availability"
-            aria-describedby="availability Help"
-            placeholder="e.g Monday: 09:00 - 17:00"
+            id="day"
+            name="day"
+            value={doctor.day}
+            aria-describedby="day-Help"
+            placeholder="e.g Monday"
             onChange={handleChange}
             onFocus={handleFocus}
           />
-          {formErrors.availability && (
-            <span className="errors"> {formErrors.availability} </span>
+          {formErrors.day && <span className="errors"> {formErrors.day} </span>}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="time" className="form-label">
+            Availability Time
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="time"
+            name="time"
+            value={doctor.time}
+            aria-describedby="time Help"
+            placeholder="e.g 09:00 - 17:00"
+            onChange={handleChange}
+            onFocus={handleFocus}
+          />
+          {formErrors.time && (
+            <span className="errors"> {formErrors.time} </span>
           )}
         </div>
 
@@ -192,6 +241,7 @@ const Doctor = () => {
           <input
             type="password"
             className="form-control"
+            value={doctor.password}
             id="InputPassword1"
             name="password"
             placeholder="please enter your password"

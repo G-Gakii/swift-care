@@ -25,7 +25,7 @@ const Appointment = () => {
     }
     try {
       let res = await AxiosInstanceWithInterceptor.post(
-        "appointment",
+        "book/appointment",
         appointment
       );
       console.log(res);

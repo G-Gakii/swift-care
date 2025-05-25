@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Navbar from "../NavBar/navbar";
 import { AxiosInstance } from "../../services/ApiInterceptor";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  let role;
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -25,9 +28,20 @@ const Login = () => {
       let res = await AxiosInstance.post("auth/login/", user);
 
       localStorage.setItem("token", res.data.token);
+
+      role = localStorage.getItem("role");
       alert("Login successfully");
+
+      if (role === "patient") {
+        navigate("/book_appointment");
+      } else if (role === "doctor") {
+        navigate("/doctors");
+      }
     } catch (error) {
       console.log(error);
+      if (error.response && error.response.status === 400) {
+        alert("Invalid credentials");
+      }
     } finally {
       setUser({ email: "", password: "" });
       setFormErrors({});

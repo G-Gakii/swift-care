@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../NavBar/navbar";
 import { AxiosInstance } from "../../services/ApiInterceptor";
+import { useNavigate } from "react-router-dom";
 
 const Patient = () => {
+  const navigate = useNavigate();
   const [patient, setPatient] = useState({
     email: "",
     password: "",
@@ -31,6 +33,7 @@ const Patient = () => {
     try {
       let res = await AxiosInstance.post("patient", patient);
       console.log(res);
+      navigate("/login");
       alert("Your have been registered successfully");
     } catch (error) {
       console.log(error);
@@ -56,7 +59,7 @@ const Patient = () => {
     if (!patient.phone_number) {
       errors.phone_number = "Phone Number required";
     }
-    if (!doctor.password) {
+    if (!patient.password) {
       errors.password = "Password required";
     }
     return errors;
@@ -73,7 +76,7 @@ const Patient = () => {
     <>
       <Navbar />
       <form onSubmit={handleSubmit}>
-        <h1 className="text-center">Register Patient</h1>
+        <h1 className="text-center"> Patient</h1>
         <div className="mb-3">
           <label htmlFor="full_name" className="form-label">
             Fullname
