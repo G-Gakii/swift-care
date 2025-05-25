@@ -7,6 +7,8 @@ from rest_framework.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from rest_framework.exceptions import ValidationError
 from datetime import timedelta
+from doctors_app.api.permissions import IsOwnerOrAdmin
+from rest_framework.permissions import IsAuthenticated
 
 
 
@@ -16,6 +18,7 @@ class PatientList(generics.ListCreateAPIView):
 
 
 class PatientDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
     queryset = Patient.objects.all()
     serializer_class =PatientSerializer
     
@@ -74,6 +77,6 @@ class AppointmentList(generics.ListCreateAPIView):
 
 
 class AppointmentDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes=[IsDoctororAdmin] #Ensures only doctors/admins can modify appointments
+    permission_classes=[IsDoctororAdmin , IsOwnerOrAdmin] #Ensures only doctors/admins can modify appointments
     queryset = Appointment.objects.all()
     serializer_class =AppointmentSerializer
