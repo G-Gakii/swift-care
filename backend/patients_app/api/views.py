@@ -77,6 +77,6 @@ class AppointmentList(generics.ListCreateAPIView):
 
 
 class AppointmentDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes=[IsDoctororAdmin , IsOwnerOrAdmin] #Ensures only doctors/admins can modify appointments
+    permission_classes=[IsDoctororAdmin ] #Ensures only doctors/admins can modify appointments
     queryset = Appointment.objects.all()
     serializer_class =AppointmentSerializer

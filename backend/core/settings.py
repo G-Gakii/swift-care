@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'doctors_app',
     'rest_framework.authtoken',
     "corsheaders",
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
