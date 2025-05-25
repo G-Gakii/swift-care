@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.core.validators import EmailValidator
 
 # Create your models here.
 
@@ -26,8 +27,8 @@ class CustomUser(AbstractBaseUser):
         ('doctor','doctor'),
         ('admin', 'Admin'),
     )
-    email=models.EmailField(unique=True)
-    role=models.CharField(max_length=10,choices=ROLE_CHOICES)
+    email=models.EmailField(unique=True,validators=[EmailValidator()])
+    role=models.CharField(max_length=10,choices=ROLE_CHOICES,blank=False)
     is_admin=models.BooleanField(default=False)
     
     objects=CustomUserManager()
