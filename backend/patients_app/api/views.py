@@ -21,9 +21,13 @@ class PatientDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsOwnerOrAdmin]
     queryset = Patient.objects.all()
     serializer_class =PatientSerializer
+
+class AppointmentList(generics.ListAPIView):
+    permission_classes=[IsDoctororAdmin]
+    queryset = Appointment.objects.all()
+    serializer_class = AppointmentSerializer    
     
-    
-class AppointmentList(generics.ListCreateAPIView):
+class AppointmentCreate(generics.CreateAPIView):
     permission_classes=[IsPatientorAdmin]
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
